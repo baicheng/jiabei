@@ -27,8 +27,28 @@ get '/testup' do
   @key=params[:key]
   case @key
     when "1"
+@cmdresult2=Array.new
+	@cmdresult1=`/home/yanyan/baicheng/jiabei-master/bin/img/imginfo.sh`
+	@cmdresult2=`/home/yanyan/baicheng/jiabei-master/bin/img/imgtaginfo.sh`
+	@cmdresult2=@cmdresult2.split("\n")
+	p @cmdresult2
+	p @cmdresult2.size
               erb :doimg
         else
-
+	
       end
 end
+
+get '/testupresult' do
+
+    @tag=params[:tags]
+ if @tag
+	@cmdresult=`/home/yanyan/baicheng/jiabei-master/bin/img/imgdoup.sh #{@tag}`
+	@cmdresult=@cmdresult.gsub("\n","<br>")
+	p @cmdresult
+	erb :doimgup
+end
+	
+end
+
+

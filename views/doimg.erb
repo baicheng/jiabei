@@ -5,16 +5,17 @@
   </head>
   <body>
     <h1></h1>
-    <form  method="get">
-      <div> Please select  th Option <br></div>
-
-
-       <div> <input type="text" name="text" value="">
-         <input type="text" name="text2" value="aaa">
-      <br>  </div>
-
-        <input type="submit" value="submit">
-    </form>
+<div>当前信息<%= @cmdresult1 %></div>
+<br>
+请选择要切换的分支:     
+<form action="/testupresult"  method="get">
+<select name="tags">
+<% @cmdresult2.each do |tmp| %>
+<option value="<%= tmp %>"><%= tmp %></option>
+<% end %>
+</select> 
+<input type="submit" value="submit">
+</form>
 
   </body>
 </html>
