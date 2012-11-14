@@ -27,23 +27,24 @@ get '/testup' do
   @key=params[:key]
   case @key
     when "1"
-@cmdresult2=Array.new
-	@cmdresult1=`/home/yanyan/baicheng/jiabei-master/bin/img/imginfo.sh`
-	@cmdresult2=`/home/yanyan/baicheng/jiabei-master/bin/img/imgtaginfo.sh`
-	@cmdresult2=@cmdresult2.split("\n")
-	p @cmdresult2
-	p @cmdresult2.size
-              erb :doimg
-        else
-	
+	@keyname="img"
+    when "2"
+	@keyname="show"
+    when "3"
+	@keyname="server"
+    else
       end
+@cmdresult1,@cmdresult2=processtestinfocmd(@keyname)
+erb:doimg
 end
 
 get '/testupresult' do
 
     @tag=params[:tags]
+    @hidden=params[:hidden]
  if @tag
-	@cmdresult=`/home/yanyan/baicheng/jiabei-master/bin/img/imgdoup.sh #{@tag}`
+#	@cmdresult=`/home/yanyan/baicheng/jiabei-master/bin/img/imgdoup.sh #{@tag}`
+ @cmdresult=processdotestupcmd(@hidden,@tag)
 	@cmdresult=@cmdresult.gsub("\n","<br>")
 	p @cmdresult
 	erb :doimgup
@@ -51,4 +52,14 @@ end
 	
 end
 
+def processtestinfocmd(key)
+cmdresult1=`bin/testupcommon/commoninfo.sh #{key}  2>&1 `
+cmdresult2=`bin/testupcommon/commontaginfo.sh #{key} `
+cmdresult2=cmdresult2.split("\n")
+return cmdresult1,cmdresult2	
+end
+
+def processdotestupcmd(key,tag)
+cmdresult=`bin/testupcommon/commondoup.sh #{key} #{@tag} 2>&1`
+end
 

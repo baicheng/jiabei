@@ -10,7 +10,7 @@
       <div> Please select  th Option <br></div>
 
       <% @@display_menu.each do |menu_key,menu_value| %>
-         <div> <input type="checkbox" name="key" value="<%= menu_key %>"> [<%= menu_key %>] <%= menu_value %>
+         <div> <input type="radio" name="key" value="<%= menu_key %>"> [<%= menu_key %>] <%= menu_value %>
       <br>  </div>
           <% end %>
         <input type="submit" value="submit">
@@ -19,7 +19,8 @@
     <% if @key %>
         <div id="result">
            你选择的是 :
-          <%= @key||@key2 %>
+          <%= @key %>
+	<%= @postid %>
 
         </div>
   <% end %>
